@@ -6,10 +6,6 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
-import InfoIcon from "@mui/icons-material/Info";
 import { menuData } from "../../../mockData";
 
 export default function Sidebar({ open, onClose }) {
@@ -18,8 +14,8 @@ export default function Sidebar({ open, onClose }) {
       <List sx={{ width: 240 }}>
         {menuData.map((item, index) => (
           <ListItem button key={index}>
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
+            <ListItemIcon>{item.name}</ListItemIcon>
+            <ListItemText primary={item.price} />
           </ListItem>
         ))}
       </List>

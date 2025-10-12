@@ -1,1 +1,1 @@
-export {default} from './CustomerLayout'
+export {default} from './CustomerLayout.tsx'

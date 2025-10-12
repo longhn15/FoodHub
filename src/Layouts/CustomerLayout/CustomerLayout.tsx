@@ -1,30 +1,35 @@
 import React, { useState } from "react";
 import { Box, Toolbar } from "@mui/material";
 import Header from "../Components/Header";
-import Sidebar from "../Components/Sidebar";
+import FooterBar from "../Components/FooterBar";
 
 export default function CustomerLayout({ children }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [cart, setCart] = useState([]);
+
+  const addToCart = (item) => {
+    setCart([...cart, item]);
+  };
+
 
   return (
     <Box sx={{ display: "flex" }}>
       {/* Header */}
-      <Header
-        cartCount={cart.length}
-        onMenuClick={() => setSidebarOpen(true)}
-        onCartClick={() => alert("Mở giỏ hàng")}
-      />
-
-      {/* Sidebar */}
-      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <Header/>
 
       {/* Nội dung chính */}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         {/* Đệm chỗ cho AppBar (Toolbar để không bị che) */}
         <Toolbar />
-        {children}
+        {React.cloneElement(children, {addToCart})}
       </Box>
+
+       <FooterBar
+        cartCount={cart.length}
+        onSupport={() => alert("Gọi hỗ trợ")}
+        onMenu={() => alert("Xem thực đơn")}
+        onCart={() => alert("Xem giỏ hàng")}
+        onPay={() => alert("Gọi thanh toán")}
+      />
     </Box>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import CustomerLayout from "./Layouts/CustomerLayout";
+import CustomerLayout from './Layouts/CustomerLayout'
 import Menu from "./pages/Menu";
 
 function App() {
