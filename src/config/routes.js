@@ -1,7 +1,7 @@
 const routes = {
-    menu: "/menu",
+    menu: "/",
     help: "/help",
-    cartdrawer: "/drawer",
+    cartdrawer: "/cartdrawer",
     pay: "/pay",
 }
 

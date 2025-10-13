@@ -9,8 +9,15 @@ import {
   Button,
   Box,
 } from "@mui/material";
-import { menuData } from "../../mockData"
-export default function Menu({ addToCart }) {
+import { menuData } from "~/mockData.js"
+
+type MenuProps = {
+  addToCart?: (item: any) => void; 
+};
+
+export default function Menu({ addToCart}: MenuProps ) {
+
+
   return (
     <Grid container spacing={2} sx={{ p: 2}}>
       {menuData.map((item) => (
@@ -33,7 +40,7 @@ export default function Menu({ addToCart }) {
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={() => addToCart(item)}
+                  onClick={() => addToCart && addToCart(item)}
                 >
                   + Thêm
                 </Button>
