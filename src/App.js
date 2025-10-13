@@ -1,5 +1,8 @@
 import React from "react";
-import CustomerLayout from './Layouts/CustomerLayout'
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
+
+
+import CustomerLayout from "~/layouts/CustomerLayout";
 import Menu from "./pages/Menu";
 
 function App() {

@@ -1,8 +1,8 @@
 const routes = {
-    menu: "/",
+    menu: "/menu",
     help: "/help",
-    drawer: "/drawer",
-    pay: "/pay"
+    cartdrawer: "/drawer",
+    pay: "/pay",
 }
 
-export default routes
+export default routes;
