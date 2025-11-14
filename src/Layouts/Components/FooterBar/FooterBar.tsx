@@ -1,79 +1,91 @@
-import React from 'react';
-import { Box, Button, Badge } from '@mui/material';
-import { ShoppingCart, HelpOutline, RestaurantMenu, Payment } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Box, Button, Badge } from "@mui/material";
+import { ShoppingCart, HelpOutline, RestaurantMenu, Payment } from "@mui/icons-material";
+import { useNavigate, useLocation } from "react-router-dom";
+
+const buttons = [
+  { id: "/help", label: "Gọi hỗ trợ", icon: <HelpOutline /> },
+  { id: "/", label: "Thực đơn", icon: <RestaurantMenu /> },
+  { id: "/cartdrawer", label: "Giỏ hàng", icon: <ShoppingCart />, isCart: true },
+  { id: "/pay", label: "Thanh toán", icon: <Payment /> },
+];
 
 export default function FooterBar({
-    cartCount = 0,
-}: // onSupport,
-// onMenu,
-// onCart,
-// onPay,
-{
-    cartCount?: number;
-    // onSupport?: () => void;
-    // onMenu?:() => void;
-    // onCart?: () => void;
-    // onPay?: () => void;
+  cartCount = 0,
+}: {
+  cartCount?: number;
 }) {
-    const navigate = useNavigate();
-    return (
-        <Box
-            sx={{
-                position: 'fixed',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: 40,
-                bgcolor: 'white',
-                display: 'flex',
-                justifyContent: 'space-around',
-                alignItems: 'center',
-                borderTop: '1px solid #ddd',
-                boxShadow: '0 -2px 6px rgba(0,0,0,0.1)',
-                zIndex: 1200,
-            }}
-        >
-            <Button
-                onClick={() => navigate('/help')}
-                startIcon={<HelpOutline />}
-                sx={{ flex: 1, height: '100%', borderRadius: 0 }}
-            >
-                Yêu cầu hỗ trợ
-            </Button>
+  const navigate = useNavigate();
+  const location = useLocation(); // lấy URL hiện tại
 
-            <Button
-                onClick={() => navigate('/')}
-                startIcon={<RestaurantMenu />}
-                sx={{
-                    flex: 1,
-                    height: '100%',
-                    borderRadius: 0,
-                    bgcolor: '#ffeb3b',
-                    '&:hover': { bgcolor: '#fdd835' },
-                }}
-            >
-                Thực đơn & gọi món
-            </Button>
+  return (
+    <Box
+      sx={{
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 60,
+        bgcolor: "white",
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
+        borderTop: "1px solid #ddd",
+        boxShadow: "0 -2px 6px rgba(0,0,0,0.1)",
+        zIndex: 1200,
+      }}
+    >
+      {buttons.map((btn) => {
+        const isActive =
+          location.pathname === btn.id ||
+          (btn.id === "/" && location.pathname === "/"); // check đường dẫn hiện tại
 
-            <Button onClick={() => navigate('/cartdrawer')} sx={{ flex: 1, height: '100%', borderRadius: 0 }}>
+        return (
+          <Button
+            key={btn.id}
+            onClick={() => navigate(btn.id)}
+            startIcon={
+              btn.isCart ? (
                 <Badge
-                    badgeContent={cartCount}
-                    color="warning"
-                    sx={{ '& .MuiBadge-badge': { fontSize: 14, minWidth: 22, height: 22 } }}
+                  badgeContent={cartCount}
+                  color="warning"
+                  sx={{
+                    "& .MuiBadge-badge": {
+                      fontSize: 15,
+                      minWidth: 18,
+                      height: 18,
+                      top: 6,
+                      right: -6,
+                    },
+                  }}
                 >
-                    <ShoppingCart />
+                  {btn.icon}
                 </Badge>
-                &nbsp;Giỏ hàng
-            </Button>
-
-            <Button
-                onClick={() => navigate('/pay')}
-                startIcon={<Payment />}
-                sx={{ flex: 1, height: '100%', borderRadius: 0 }}
-            >
-                Gọi thanh toán
-            </Button>
-        </Box>
-    );
+              ) : (
+                btn.icon
+              )
+            }
+            sx={{
+              flex: 1,
+              height: "100%",
+              borderRadius: 0,
+              fontSize: "12px",
+              fontWeight: isActive ? 600 : 400,
+              color: isActive ? "black" : "text.secondary",
+              bgcolor: isActive ? "#ffeb3b" : "transparent",
+              "&:hover": {
+                bgcolor: isActive ? "#eec614ff" : "#f5f5f5",
+              },
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              textTransform: "none",
+            }}
+          >
+            {btn.label}
+          </Button>
+        );
+      })}
+    </Box>
+  );
 }

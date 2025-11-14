@@ -11,7 +11,17 @@ export default function CustomerLayout({ children }: CustomerLayoutProps) {
   const [cart, setCart] = useState<any>([]);
 
   const addToCart = (item: any) => {
-    setCart([...cart, item]);
+    setCart((prevCart: any[]) => {
+      const existingItem = prevCart.find((c) => c.name === item.name);
+
+      if (existingItem) {
+        alert("Món này đã có trong giỏ hàng!");
+        return prevCart;
+      }
+      else {
+        return [...prevCart, item];
+      }
+    });
   };
 
 
@@ -23,8 +33,8 @@ export default function CustomerLayout({ children }: CustomerLayoutProps) {
       {/* Nội dung chính */}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         {/* Đệm chỗ cho AppBar (Toolbar để không bị che) */}
-        <Toolbar />
-        {React.cloneElement(children as any, {addToCart})}
+        <Box sx={{mt: "40px"}} />
+        {React.cloneElement(children as any, {addToCart, cart, setCart})}
       </Box>
 
        <FooterBar
@@ -33,3 +43,6 @@ export default function CustomerLayout({ children }: CustomerLayoutProps) {
     </Box>
   );
 }
+
+
+
